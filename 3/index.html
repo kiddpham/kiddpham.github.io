@@ -35,7 +35,8 @@
         .image-item:hover{box-shadow:0 0 15px rgba(0,255,65,0.3);border-color:#7fff00;}
         .image-label{color:#00ff41;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
         .image-item img{width:100%;border:1px solid #00ff41;}
-        .large-img img{width:100%;max-width:800px;display:block;margin:0 auto;border:1px solid #00ff41;}
+        .large-img{max-width:1000px;margin:0 auto 30px auto;}
+        .large-img img{width:100%;border:1px solid #00ff41;}
         .section-description{font-family:'JetBrains Mono',monospace;font-size:14px;color:#b0ff7a;margin-bottom:20px;line-height:1.6;}
         .security-footer{margin-top:50px;padding:20px;border-top:1px solid #00ff41;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7fff00;opacity:0.8;}
         @media (max-width:768px){
@@ -80,8 +81,11 @@
         <div class="section-description">Computed projective transformations using manually selected correspondences and least-squares fitting.</div>
         <div class="results-grid">
             <div class="image-item"><div class="image-label">Derivations</div><img src="SOS_derivations.jpg"></div>
-            <div class="image-item large-img"><div class="image-label">Point Correspondences</div><img src="correspondences.png"></div>
             <div class="image-item"><div class="image-label">Homography Matrix</div><img src="homography_matrix.png"></div>
+        </div>
+        <div class="large-img">
+            <div class="image-label">Point Correspondences</div>
+            <img src="correspondences.png">
         </div>
     </div>
 
@@ -105,12 +109,18 @@
     <div class="evidence-section">
         <div class="evidence-title">A.4: Blend Images into a Mosaic</div>
         <div class="section-description">Feathered mosaics generated through alpha-weighted averaging of overlapping warped regions.</div>
-        <div class="results-grid">
-            <div class="image-item large-img"><div class="image-label">Daytime - Source Images</div><img src="day_source.png"></div>
-            <div class="image-item"><div class="image-label">Daytime - Panorama</div><img src="day_panorama.png"></div>
+        <div class="large-img">
+            <div class="image-label">Daytime - Source Images</div>
+            <img src="day_source.png">
         </div>
         <div class="results-grid">
-            <div class="image-item large-img"><div class="image-label">Indoor - Source Images</div><img src="inside_source.png"></div>
+            <div class="image-item"><div class="image-label">Daytime - Panorama</div><img src="day_panorama.png"></div>
+        </div>
+        <div class="large-img">
+            <div class="image-label">Indoor - Source Images</div>
+            <img src="inside_source.png">
+        </div>
+        <div class="results-grid">
             <div class="image-item"><div class="image-label">Indoor - Panorama</div><img src="inside_panorama.png"></div>
         </div>
     </div>
