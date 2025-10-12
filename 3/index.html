@@ -8,148 +8,39 @@
             font-family: 'AgencyGothic';
             src: url('../fonts/agencygothicct_medium.otf') format('opentype');
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * {margin:0;padding:0;box-sizing:border-box;}
         body {
-            background: #0a0a0a;
+            background:#0a0a0a;
             background-image:
-                linear-gradient(rgba(0,255,0,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,0,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            font-family: 'AgencyGothic', monospace;
-            font-size: 20px;
-            margin: 20px;
-            color: #00ff41;
-            min-height: 100vh;
+                linear-gradient(rgba(0,255,0,0.03)1px,transparent 1px),
+                linear-gradient(90deg,rgba(0,255,0,0.03)1px,transparent 1px);
+            background-size:40px 40px;
+            font-family:'AgencyGothic',monospace;
+            font-size:20px;
+            margin:20px;
+            color:#00ff41;
+            min-height:100vh;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            border: 2px solid #00ff41;
-            background: rgba(0,0,0,0.8);
-        }
-        .header h1 {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 8px #00ff41;
-        }
-        .back-button {
-            background: transparent;
-            border: 2px solid #ff0040;
-            color: #ff0040;
-            padding: 8px 16px;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
-        }
-        .back-button:hover {
-            background: #ff0040;
-            color: #000;
-        }
-        .classification {
-            text-align: center;
-            margin-bottom: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: #ff0040;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            border: 1px solid #ff0040;
-            padding: 8px;
-            background: rgba(255,0,64,0.1);
-        }
-        .mission-details {
-            margin-bottom: 30px;
-            padding: 20px;
-            border-left: 3px solid #00ff41;
-            background: rgba(0,255,65,0.05);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 16px;
-            color: #b0ff7a;
-        }
-        .evidence-section {
-            margin-bottom: 40px;
-        }
-        .evidence-title {
-            color: #ff0040;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ff0040;
-        }
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .image-item {
-            background: rgba(0,0,0,0.9);
-            border: 1px solid #00ff41;
-            padding: 20px;
-            transition: all 0.2s ease;
-        }
-        .image-item:hover {
-            box-shadow: 0 0 15px rgba(0,255,65,0.3);
-            border-color: #7fff00;
-        }
-        .image-label {
-            color: #00ff41;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-        .image-item img {
-            width: 100%;
-            border: 1px solid #00ff41;
-        }
-        .section-description {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: #b0ff7a;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        .security-footer {
-            margin-top: 50px;
-            padding: 20px;
-            border-top: 1px solid #00ff41;
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            color: #7fff00;
-            opacity: 0.8;
-        }
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
+        .container{max-width:1200px;margin:0 auto;}
+        .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding:20px;border:2px solid #00ff41;background:rgba(0,0,0,0.8);}
+        .header h1{font-size:clamp(1.2rem,3vw,1.8rem);font-weight:bold;text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 8px #00ff41;}
+        .back-button{background:transparent;border:2px solid #ff0040;color:#ff0040;padding:8px 16px;text-decoration:none;text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:bold;letter-spacing:1px;transition:all 0.2s ease;}
+        .back-button:hover{background:#ff0040;color:#000;}
+        .classification{text-align:center;margin-bottom:20px;font-family:'JetBrains Mono',monospace;font-size:14px;color:#ff0040;text-transform:uppercase;letter-spacing:3px;border:1px solid #ff0040;padding:8px;background:rgba(255,0,64,0.1);}
+        .mission-details{margin-bottom:30px;padding:20px;border-left:3px solid #00ff41;background:rgba(0,255,65,0.05);font-family:'JetBrains Mono',monospace;font-size:16px;color:#b0ff7a;}
+        .evidence-section{margin-bottom:40px;}
+        .evidence-title{color:#ff0040;font-family:'JetBrains Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid #ff0040;}
+        .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:30px;}
+        .image-item{background:rgba(0,0,0,0.9);border:1px solid #00ff41;padding:20px;transition:all 0.2s ease;}
+        .image-item:hover{box-shadow:0 0 15px rgba(0,255,65,0.3);border-color:#7fff00;}
+        .image-label{color:#00ff41;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+        .image-item img{width:100%;border:1px solid #00ff41;}
+        .large-img img{width:100%;max-width:800px;display:block;margin:0 auto;border:1px solid #00ff41;}
+        .section-description{font-family:'JetBrains Mono',monospace;font-size:14px;color:#b0ff7a;margin-bottom:20px;line-height:1.6;}
+        .security-footer{margin-top:50px;padding:20px;border-top:1px solid #00ff41;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7fff00;opacity:0.8;}
+        @media (max-width:768px){
+            .header{flex-direction:column;text-align:center;gap:10px;}
+            .results-grid{grid-template-columns:1fr;}
         }
     </style>
 </head>
@@ -172,9 +63,9 @@
         <div class="evidence-title">A.1: Shoot and Digitize Pictures</div>
         <div class="section-description">Two image sets captured under fixed center-of-projection conditions.</div>
         <div class="results-grid">
-            <div class="image-item"><div class="image-label">Set 1 - IMG_3151</div><img src="IMG_3151.jpg"></div>
-            <div class="image-item"><div class="image-label">Set 1 - IMG_3152</div><img src="IMG_3152.jpg"></div>
-            <div class="image-item"><div class="image-label">Set 1 - IMG_3153</div><img src="IMG_3153.jpg"></div>
+            <div class="image-item"><div class="image-label">Set 1 - Left</div><img src="IMG_3151.jpg"></div>
+            <div class="image-item"><div class="image-label">Set 1 - Middle</div><img src="IMG_3152.jpg"></div>
+            <div class="image-item"><div class="image-label">Set 1 - Right</div><img src="IMG_3153.jpg"></div>
         </div>
         <div class="results-grid">
             <div class="image-item"><div class="image-label">Set 2 - Left</div><img src="left.jpg"></div>
@@ -189,7 +80,7 @@
         <div class="section-description">Computed projective transformations using manually selected correspondences and least-squares fitting.</div>
         <div class="results-grid">
             <div class="image-item"><div class="image-label">Derivations</div><img src="SOS_derivations.jpg"></div>
-            <div class="image-item"><div class="image-label">Point Correspondences</div><img src="correspondences.png"></div>
+            <div class="image-item large-img"><div class="image-label">Point Correspondences</div><img src="correspondences.png"></div>
             <div class="image-item"><div class="image-label">Homography Matrix</div><img src="homography_matrix.png"></div>
         </div>
     </div>
@@ -215,11 +106,11 @@
         <div class="evidence-title">A.4: Blend Images into a Mosaic</div>
         <div class="section-description">Feathered mosaics generated through alpha-weighted averaging of overlapping warped regions.</div>
         <div class="results-grid">
-            <div class="image-item"><div class="image-label">Daytime - Source Images</div><img src="day_source.png"></div>
+            <div class="image-item large-img"><div class="image-label">Daytime - Source Images</div><img src="day_source.png"></div>
             <div class="image-item"><div class="image-label">Daytime - Panorama</div><img src="day_panorama.png"></div>
         </div>
         <div class="results-grid">
-            <div class="image-item"><div class="image-label">Indoor - Source Images</div><img src="inside_source.png"></div>
+            <div class="image-item large-img"><div class="image-label">Indoor - Source Images</div><img src="inside_source.png"></div>
             <div class="image-item"><div class="image-label">Indoor - Panorama</div><img src="inside_panorama.png"></div>
         </div>
     </div>
