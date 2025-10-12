@@ -62,7 +62,7 @@
     <!-- A.1 -->
     <div class="evidence-section">
         <div class="evidence-title">A.1: Shoot and Digitize Pictures</div>
-        <div class="section-description">Two image sets captured under fixed center-of-projection conditions.</div>
+        <div class="section-description">Two image sets captured using rotating camera technique.</div>
         <div class="results-grid">
             <div class="image-item"><div class="image-label">Set 1 - Left</div><img src="IMG_3151.jpg"></div>
             <div class="image-item"><div class="image-label">Set 1 - Middle</div><img src="IMG_3152.jpg"></div>
@@ -92,7 +92,7 @@
     <!-- A.3 -->
     <div class="evidence-section">
         <div class="evidence-title">A.3: Warp the Images (Rectification)</div>
-        <div class="section-description">Rectification experiments using both nearest neighbor and bilinear interpolation.</div>
+        <div class="section-description">Testing warping using both nearest neighbor and bilinear interpolation.</div>
         <div class="results-grid">
             <div class="image-item"><div class="image-label">Grey Wall - Original</div><img src="grey_wall.jpg"></div>
             <div class="image-item"><div class="image-label">Grey Wall - Nearest Neighbor</div><img src="grey_wall_nn.png"></div>
@@ -108,7 +108,10 @@
     <!-- A.4 -->
     <div class="evidence-section">
         <div class="evidence-title">A.4: Blend Images into a Mosaic</div>
-        <div class="section-description">Feathered mosaics generated through alpha-weighted averaging of overlapping warped regions.</div>
+        <div class="section-description">Feathered mosaics generated through alpha-weighted averaging of overlapping warped regions. 
+            You can see edge elements not present on the side images in the panorama image. Such as the grey fire alarm or hydrant box not 
+            being present on the left image in set 1, or orange underside of the stair case not being present in the right image of set 1. 
+            Similar phenomenon occur in image set 2 and 3 as well.</div>
         <div class="large-img">
             <div class="image-label">Daytime - Source Images</div>
             <img src="day_source.png">
@@ -124,8 +127,6 @@
             <div class="image-item"><div class="image-label">Indoor - Panorama</div><img src="inside_panorama.png"></div>
         </div>
     </div>
-
-    <div class="security-footer">END OF FILE // OPERATION ALPHA-THREE // CONFIDENTIAL</div>
 </div>
 </body>
 </html>
