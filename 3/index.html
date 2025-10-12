@@ -35,6 +35,7 @@
         .image-item:hover{box-shadow:0 0 15px rgba(0,255,65,0.3);border-color:#7fff00;}
         .image-label{color:#00ff41;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
         .image-item img{width:100%;border:1px solid #00ff41;}
+        .panorama img{width:80%;display:block;margin:0 auto;border:1px solid #00ff41;}
         .large-img{max-width:1000px;margin:0 auto 30px auto;}
         .large-img img{width:100%;border:1px solid #00ff41;}
         .wide-strip{display:flex;justify-content:center;gap:10px;max-width:1000px;margin:0 auto 30px auto;}
@@ -46,6 +47,7 @@
             .results-grid{grid-template-columns:1fr;}
             .wide-strip{flex-direction:column;}
             .wide-strip img{width:100%;}
+            .panorama img{width:100%;}
         }
     </style>
 </head>
@@ -122,8 +124,9 @@
             <div class="image-label">Daytime - Source Images</div>
             <img src="day_source.png">
         </div>
-        <div class="results-grid">
-            <div class="image-item"><div class="image-label">Daytime - Panorama</div><img src="day_panorama.png"></div>
+        <div class="panorama">
+            <div class="image-label" style="text-align:center;">Daytime - Panorama</div>
+            <img src="day_panorama.png">
         </div>
 
         <!-- Set 2 -->
@@ -131,8 +134,9 @@
             <div class="image-label">Indoor - Source Images</div>
             <img src="inside_source.png">
         </div>
-        <div class="results-grid">
-            <div class="image-item"><div class="image-label">Indoor - Panorama</div><img src="inside_panorama.png"></div>
+        <div class="panorama">
+            <div class="image-label" style="text-align:center;">Indoor - Panorama</div>
+            <img src="inside_panorama.png">
         </div>
 
         <!-- Set 3 -->
@@ -142,8 +146,9 @@
             <img src="middle3.jpg" alt="Middle 3">
             <img src="right3.jpg" alt="Right 3">
         </div>
-        <div class="results-grid">
-            <div class="image-item"><div class="image-label">Outdoor Set 3 - Panorama</div><img src="last_panorama.png"></div>
+        <div class="panorama">
+            <div class="image-label" style="text-align:center;">Outdoor Set 3 - Panorama</div>
+            <img src="last_panorama.png">
         </div>
     </div>
 </div>
