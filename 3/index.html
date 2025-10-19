@@ -151,6 +151,74 @@
             <img src="last_panorama.png">
         </div>
     </div>
+        <!-- B.1 -->
+    <div class="evidence-section">
+        <div class="evidence-title">B.1: Harris Corner Detection & ANMS</div>
+        <div class="section-description">
+            Implemented the Harris interest point detector and Adaptive Non-Maximal Suppression (ANMS)
+            to select spatially well-distributed corners.
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Pre-ANMS Corners</div><img src="preANMS.png"></div>
+            <div class="image-item"><div class="image-label">Post-ANMS Corners</div><img src="postANMS.png"></div>
+        </div>
+    </div>
+
+    <!-- B.2 -->
+    <div class="evidence-section">
+        <div class="evidence-title">B.2: Feature Descriptor Extraction</div>
+        <div class="section-description">
+            Extracted axis-aligned 8×8 descriptors from 40×40 blurred patches around each ANMS corner.
+            Descriptors were bias/gain normalized to ensure brightness and contrast invariance.
+        </div>
+        <div class="large-img">
+            <div class="image-label">Sample Descriptor Patches</div>
+            <img src="descriptor_matrices.png">
+        </div>
+    </div>
+
+    <!-- B.3 -->
+    <div class="evidence-section">
+        <div class="evidence-title">B.3: Feature Matching</div>
+        <div class="section-description">
+            Matched feature descriptors between image pairs using the ratio-test method
+            (best/second-best &lt; threshold). The image below shows 15 matches retained out of 132 candidates.
+        </div>
+        <div class="large-img">
+            <div class="image-label">Top 15 of 132 Matched Features</div>
+            <img src="15_of_132.png">
+        </div>
+    </div>
+
+    <!-- B.4 -->
+    <div class="evidence-section">
+        <div class="evidence-title">B.4: RANSAC + Automatic Mosaics</div>
+        <div class="section-description">
+            Used 4-point RANSAC to compute robust homographies and automatically align images.
+            The comparison below shows manual (Part A) vs automatic (Part B) mosaics for each scene.
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Grey Wall – Manual</div><img src="grey_wall_manual.png"></div>
+            <div class="image-item"><div class="image-label">Grey Wall – Automatic</div><img src="grey_wall_automatic.png"></div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Indoor – Manual</div><img src="inside_mosaic_manual.png"></div>
+            <div class="image-item"><div class="image-label">Indoor – Automatic</div><img src="inside_mosaic_automatic.png"></div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Lower Sproul – Manual</div><img src="lower_sproul_manual.png"></div>
+            <div class="image-item"><div class="image-label">Lower Sproul – Automatic</div><img src="lower_sproul_auto.png"></div>
+        </div>
+    </div>
+
+    <!-- B.5 -->
+    <div class="evidence-section">
+        <div class="evidence-title">B.5: Bells & Whistles</div>
+        <div class="section-description">
+            Explored multi-scale corner detection to improve repeatability across different image scales.
+            The additional level of detection improved coverage of fine-detail regions.
+        </div>
+    </div>
 </div>
 </body>
 </html>
