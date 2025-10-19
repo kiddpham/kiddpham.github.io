@@ -168,8 +168,9 @@
     <div class="evidence-section">
         <div class="evidence-title">B.2: Feature Descriptor Extraction</div>
         <div class="section-description">
-            Extracted axis-aligned 8×8 descriptors from 40×40 blurred patches around each ANMS corner.
-            Descriptors were bias/gain normalized to ensure brightness and contrast invariance.
+            Implemented feature descriptor extraction using axis-aligned 8×8 patches centered on each ANMS-selected corner.
+Each descriptor is sampled from a 40×40 blurred window to ensure spatial smoothness, then bias- and gain-normalized for illumination invariance.
+The visualization below shows several of the extracted normalized feature patches.
         </div>
         <div class="large-img">
             <div class="image-label">Sample Descriptor Patches</div>
@@ -181,8 +182,9 @@
     <div class="evidence-section">
         <div class="evidence-title">B.3: Feature Matching</div>
         <div class="section-description">
-            Matched feature descriptors between image pairs using the ratio-test method
-            (best/second-best &lt; threshold). The image below shows 15 matches retained out of 132 candidates.
+            Matched feature descriptors between image pairs using Euclidean distance and Lowe’s ratio test to filter out ambiguous correspondences.
+The ratio between the closest and second-closest matches determines reliability — only distinct, confident matches are retained.
+The image below highlights the top 15 correspondences out of 132 total detected pairs.
         </div>
         <div class="large-img">
             <div class="image-label">Top 15 of 132 Matched Features</div>
@@ -194,8 +196,12 @@
     <div class="evidence-section">
         <div class="evidence-title">B.4: RANSAC + Automatic Mosaics</div>
         <div class="section-description">
-            Used 4-point RANSAC to compute robust homographies and automatically align images.
-            The comparison below shows manual (Part A) vs automatic (Part B) mosaics for each scene.
+            Built a robust automatic image alignment pipeline based on the RANSAC framework from lecture.
+Each iteration randomly selects four feature correspondences to compute a candidate homography, projects all points through it, and measures reprojection error against the true matches.
+Matches whose error falls below a 4-pixel threshold are marked as inliers.
+The homography yielding the most inliers is refined through a least-squares fit over those inliers to produce the final transformation.
+This approach eliminates false correspondences that pass the feature-matching stage, producing accurate, automatic mosaics without manual point selection.
+The comparison below shows mosaics generated manually (Part A) versus automatically using RANSAC-filtered correspondences.
         </div>
         <div class="results-grid">
             <div class="image-item"><div class="image-label">Grey Wall – Manual</div><img src="grey_wall_manual.png"></div>
