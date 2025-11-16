@@ -35,6 +35,7 @@
         .image-item:hover{box-shadow:0 0 15px rgba(0,255,65,0.3);border-color:#7fff00;}
         .image-label{color:#00ff41;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
         .image-item img{width:100%;border:1px solid #00ff41;}
+        .placeholder{background:rgba(0,0,0,0.9);border:1px dashed #ff0040;padding:60px 20px;text-align:center;color:#ff0040;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:2px;}
         .large-img{max-width:1000px;margin:0 auto 30px auto;}
         .large-img img{width:100%;border:1px solid #00ff41;}
         .section-description{font-family:'JetBrains Mono',monospace;font-size:14px;color:#b0ff7a;margin-bottom:20px;line-height:1.6;}
@@ -69,14 +70,8 @@
             Implemented camera-to-world transformations and created dataset with train/val/test splits.
         </div>
         <div class="results-grid">
-            <div class="image-item">
-                <div class="image-label">Multiple Camera Visualization</div>
-                <img src="viser_screenshot_multiple_cameras.png">
-            </div>
-            <div class="image-item">
-                <div class="image-label">Single Camera View</div>
-                <img src="viser_screenshot_single_camera.png">
-            </div>
+            <div class="placeholder">[CAMERA CALIBRATION VISUALIZATION - PENDING]</div>
+            <div class="placeholder">[3D SCANNING RESULTS - PENDING]</div>
         </div>
     </div>
 
@@ -145,6 +140,18 @@
             Network: 8 layers with skip connection, positional encoding (L=10 for position, L=4 for direction).
         </div>
         
+        <!-- Camera Visualizations -->
+        <div class="results-grid">
+            <div class="image-item">
+                <div class="image-label">Multiple Cameras Visualization</div>
+                <img src="viser_screenshot_multiple_cameras.png">
+            </div>
+            <div class="image-item">
+                <div class="image-label">Single Camera View</div>
+                <img src="viser_screenshot_single_camera.png">
+            </div>
+        </div>
+
         <!-- Ray Visualization -->
         <div class="large-img">
             <div class="image-label">Rays and Cameras Visualization (100 rays)</div>
@@ -185,20 +192,14 @@
         
         <!-- Your object training progression -->
         <div class="results-grid">
-            <div class="image-item"><div class="image-label">Your Object - Iter 0</div><img src="my_object_iter_0000.png"></div>
-            <div class="image-item"><div class="image-label">Your Object - Iter 300</div><img src="my_object_iter_0300.png"></div>
-            <div class="image-item"><div class="image-label">Your Object - Iter 600</div><img src="my_object_iter_0600.png"></div>
+            <div class="placeholder">[YOUR OBJECT - ITER 0 - PENDING]</div>
+            <div class="placeholder">[YOUR OBJECT - ITER 300 - PENDING]</div>
+            <div class="placeholder">[YOUR OBJECT - ITER 600 - PENDING]</div>
         </div>
 
-        <div class="large-img">
-            <div class="image-label">Your Object - Training Loss</div>
-            <img src="my_object_loss.png">
-        </div>
+        <div class="placeholder" style="margin-bottom:30px;">[YOUR OBJECT - TRAINING LOSS PLOT - PENDING]</div>
 
-        <div class="gif-container">
-            <div class="image-label">Your Object - Novel View Synthesis</div>
-            <img src="my_object_orbit.gif">
-        </div>
+        <div class="placeholder">[YOUR OBJECT - NOVEL VIEW GIF - PENDING]</div>
     </div>
 
     <div class="security-footer">
