@@ -226,22 +226,28 @@
     </div>
 
     <!-- Part 2.6: Your Own Data -->
-    <div class="evidence-section">
-        <div class="evidence-title">Part 2.6: Training with Your Own Data</div>
-        <div class="section-description">
-            Part 2.6 differs from the earlier Part 2 sections because it no longer uses the perfectly preprocessed Lego dataset. Instead, it relies on my own captured images, which require additional preprocessing steps that the Lego pipeline never needed: undistortion, ROI cropping, resizing to a consistent resolution, and focal-length rescaling. It also adds pose-quality filtering to remove bad c2w matrices, something unnecessary with Lego's ground-truth poses. Another key change is how the depth bounds are handled—Lego uses a fixed [2.0, 6.0] range, while Part 2.6 computes near/far automatically based on actual camera distances, since the real scene scale isn’t known. Finally, rendering uses my own test poses instead of Lego’s synthetic orbit. Everything else (NeRF architecture, ray sampling, training loop) remains unchanged.
-        </div>
-        
-        <!-- Your object training progression -->
-        <div class="results-grid">
-            <div class="placeholder">[YOUR OBJECT - ITER 0 - PENDING]</div>
-            <div class="placeholder">[YOUR OBJECT - ITER 300 - PENDING]</div>
-            <div class="placeholder">[YOUR OBJECT - ITER 600 - PENDING]</div>
-        </div>
+<div class="evidence-section">
+    <div class="evidence-title">Part 2.6: Training with Your Own Data</div>
+    <div class="section-description">
+        Part 2.6 differs from the earlier Part 2 sections because it no longer uses the perfectly preprocessed Lego dataset. Instead, it relies on my own captured images, which require additional preprocessing steps that the Lego pipeline never needed: undistortion, ROI cropping, resizing to a consistent resolution, and focal-length rescaling. It also adds pose-quality filtering to remove bad c2w matrices, something unnecessary with Lego's ground-truth poses. Another key change is how the depth bounds are handled—Lego uses a fixed [2.0, 6.0] range, while Part 2.6 computes near/far automatically based on actual camera distances, since the real scene scale isn't known. Finally, rendering uses my own test poses instead of Lego's synthetic orbit. Everything else (NeRF architecture, ray sampling, training loop) remains unchanged.
+    </div>
+    
+    <!-- Training progression -->
+    <div class="results-grid">
+        <div class="image-item"><div class="image-label">My Object - View 003</div><img src="my_object_view_003.png"></div>
+        <div class="image-item"><div class="image-label">My Object - View 005</div><img src="my_object_view_005.png"></div>
+        <div class="image-item"><div class="image-label">My Object - View 007</div><img src="my_object_view_007.png"></div>
+    </div>
 
-        <div class="placeholder" style="margin-bottom:30px;">[YOUR OBJECT - TRAINING LOSS PLOT - PENDING]</div>
+    <div class="large-img">
+        <div class="image-label">My Object - Training Loss Curve</div>
+        <img src="my_nerf_loss.png">
+    </div>
 
-        <div class="placeholder">[YOUR OBJECT - NOVEL VIEW GIF - PENDING]</div>
+    <div class="gif-container">
+        <div class="image-label">My Object - Novel View Synthesis</div>
+        <img src="my_object_orbit.gif">
+    </div>
     </div>
 </div>
 </body>
