@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operation Alpha-Four - DECLASSIFIED</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        @font-face {
+            font-family: 'AgencyGothic';
+            src: url('../fonts/agencygothicct_medium.otf') format('opentype');
+        }
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {
+            background:#0a0a0a;
+            background-image:
+                linear-gradient(rgba(0,255,0,0.03)1px,transparent 1px),
+                linear-gradient(90deg,rgba(0,255,0,0.03)1px,transparent 1px);
+            background-size:40px 40px;
+            font-family:'AgencyGothic',monospace;
+            font-size:20px;
+            margin:20px;
+            color:#00ff41;
+            min-height:100vh;
+        }
+        .container{max-width:1200px;margin:0 auto;}
+        .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding:20px;border:2px solid #00ff41;background:rgba(0,0,0,0.8);}
+        .header h1{font-size:clamp(1.2rem,3vw,1.8rem);font-weight:bold;text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 8px #00ff41;}
+        .back-button{background:transparent;border:2px solid #ff0040;color:#ff0040;padding:8px 16px;text-decoration:none;text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:bold;letter-spacing:1px;transition:all 0.2s ease;}
+        .back-button:hover{background:#ff0040;color:#000;}
+        .classification{text-align:center;margin-bottom:20px;font-family:'JetBrains Mono',monospace;font-size:14px;color:#ff0040;text-transform:uppercase;letter-spacing:3px;border:1px solid #ff0040;padding:8px;background:rgba(255,0,64,0.1);}
+        .mission-details{margin-bottom:30px;padding:20px;border-left:3px solid #00ff41;background:rgba(0,255,65,0.05);font-family:'JetBrains Mono',monospace;font-size:16px;color:#b0ff7a;}
+        .evidence-section{margin-bottom:40px;}
+        .evidence-title{color:#ff0040;font-family:'JetBrains Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid #ff0040;}
+        .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:30px;}
+        .image-item{background:rgba(0,0,0,0.9);border:1px solid #00ff41;padding:20px;transition:all 0.2s ease;}
+        .image-item:hover{box-shadow:0 0 15px rgba(0,255,65,0.3);border-color:#7fff00;}
+        .image-label{color:#00ff41;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+        .image-item img{width:100%;border:1px solid #00ff41;}
+        .large-img{max-width:1000px;margin:0 auto 30px auto;}
+        .large-img img{width:100%;border:1px solid #00ff41;}
+        .section-description{font-family:'JetBrains Mono',monospace;font-size:14px;color:#b0ff7a;margin-bottom:20px;line-height:1.6;}
+        .gif-container{text-align:center;margin:30px 0;}
+        .gif-container img{max-width:600px;width:100%;border:1px solid #00ff41;}
+        .security-footer{margin-top:50px;padding:20px;border-top:1px solid #00ff41;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7fff00;opacity:0.8;}
+        @media (max-width:768px){
+            .header{flex-direction:column;text-align:center;gap:10px;}
+            .results-grid{grid-template-columns:1fr;}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="classification">&#9632; DECLASSIFIED - OPERATION ALPHA-FOUR &#9632;</div>
+    <div class="header">
+        <h1>Operation Alpha-Four: Neural Radiance Fields</h1>
+        <a href="../index.html" class="back-button">&#8592; Go Back</a>
+    </div>
+    <div class="mission-details">
+        &gt; MISSION STATUS: COMPLETE<br>
+        &gt; AGENT: Kidd Pham<br>
+        &gt; OPERATION DATE: November 2025<br>
+        &gt; CLASSIFICATION LEVEL: RESTRICTED ACCESS
+    </div>
 
+    <!-- Part 0: Camera Calibration -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 0: Camera Calibration and 3D Scanning</div>
+        <div class="section-description">
+            Calibrated camera using ArUco markers and estimated camera poses for 3D object scanning.
+            Implemented camera-to-world transformations and created dataset with train/val/test splits.
+        </div>
+        <div class="results-grid">
+            <div class="image-item">
+                <div class="image-label">Multiple Camera Visualization</div>
+                <img src="viser_screenshot_multiple_cameras.png">
+            </div>
+            <div class="image-item">
+                <div class="image-label">Single Camera View</div>
+                <img src="viser_screenshot_single_camera.png">
+            </div>
+        </div>
+    </div>
+
+    <!-- Part 1: Neural Field 2D -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1: Fit a Neural Field to a 2D Image</div>
+        <div class="section-description">
+            Implemented a neural network with positional encoding to represent 2D images as continuous functions.
+            Network architecture: 4 layers, 256 hidden units, skip connection, L=10 positional encoding frequencies.
+        </div>
+        
+        <!-- Fox Results -->
+        <div class="large-img">
+            <div class="image-label">Fox - Final Reconstruction</div>
+            <img src="fox_reconstruction.png">
+        </div>
+        <div class="large-img">
+            <div class="image-label">Fox - PSNR Curve</div>
+            <img src="fox_psnr_curve.png">
+        </div>
+        <div class="large-img">
+            <div class="image-label">Fox - Hyperparameter Grid (L=2/10, Width=64/256)</div>
+            <img src="fox_hyperparameter_grid.png">
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Fox - Iter 0</div><img src="fox_iter_0000.png"></div>
+            <div class="image-item"><div class="image-label">Fox - Iter 300</div><img src="fox_iter_0300.png"></div>
+            <div class="image-item"><div class="image-label">Fox - Iter 600</div><img src="fox_iter_0600.png"></div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Fox - Iter 900</div><img src="fox_iter_0900.png"></div>
+            <div class="image-item"><div class="image-label">Fox - Iter 1200</div><img src="fox_iter_1200.png"></div>
+            <div class="image-item"><div class="image-label">Fox - Iter 1500</div><img src="fox_iter_1500.png"></div>
+        </div>
+
+        <!-- Mini Pekka Results -->
+        <div class="large-img">
+            <div class="image-label">Mini Pekka - Final Reconstruction</div>
+            <img src="mini_pekka_reconstruction.png">
+        </div>
+        <div class="large-img">
+            <div class="image-label">Mini Pekka - PSNR Curve</div>
+            <img src="mini_pekka_psnr_curve.png">
+        </div>
+        <div class="large-img">
+            <div class="image-label">Mini Pekka - Hyperparameter Grid</div>
+            <img src="mini_pekka_hyperparameter_grid.png">
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Mini Pekka - Iter 0</div><img src="mini_pekka_iter_0000.png"></div>
+            <div class="image-item"><div class="image-label">Mini Pekka - Iter 300</div><img src="mini_pekka_iter_0300.png"></div>
+            <div class="image-item"><div class="image-label">Mini Pekka - Iter 600</div><img src="mini_pekka_iter_0600.png"></div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Mini Pekka - Iter 900</div><img src="mini_pekka_iter_0900.png"></div>
+            <div class="image-item"><div class="image-label">Mini Pekka - Iter 1200</div><img src="mini_pekka_iter_1200.png"></div>
+            <div class="image-item"><div class="image-label">Mini Pekka - Iter 1500</div><img src="mini_pekka_iter_1500.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 2: NeRF -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 2: Fit a Neural Radiance Field from Multi-View Images</div>
+        <div class="section-description">
+            Implemented full NeRF pipeline: ray generation, sampling, volume rendering with density and view-dependent color.
+            Network: 8 layers with skip connection, positional encoding (L=10 for position, L=4 for direction).
+        </div>
+        
+        <!-- Ray Visualization -->
+        <div class="large-img">
+            <div class="image-label">Rays and Cameras Visualization (100 rays)</div>
+            <img src="viser_rays_cameras.png">
+        </div>
+
+        <!-- Training Progression -->
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Lego - Iter 0</div><img src="lego_iter_0000.png"></div>
+            <div class="image-item"><div class="image-label">Lego - Iter 300</div><img src="lego_iter_0300.png"></div>
+            <div class="image-item"><div class="image-label">Lego - Iter 600</div><img src="lego_iter_0600.png"></div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Lego - Iter 900</div><img src="lego_iter_0900.png"></div>
+            <div class="image-item"><div class="image-label">Lego - Iter 1200</div><img src="lego_iter_1200.png"></div>
+            <div class="image-item"><div class="image-label">Lego - Iter 1500</div><img src="lego_iter_1500.png"></div>
+        </div>
+
+        <!-- PSNR Curve -->
+        <div class="large-img">
+            <div class="image-label">Lego - PSNR Curve (Train & Validation)</div>
+            <img src="lego_psnr.png">
+        </div>
+
+        <!-- Spherical Rendering -->
+        <div class="gif-container">
+            <div class="image-label">Lego - 360° Orbit Rendering</div>
+            <img src="lego_orbit.gif">
+        </div>
+    </div>
+
+    <!-- Part 2.6: Your Own Data -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 2.6: Training with Your Own Data</div>
+        <div class="section-description">
+            Trained NeRF on custom object captured in Part 0. [Add discussion of any code/hyperparameter changes here]
+        </div>
+        
+        <!-- Your object training progression -->
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Your Object - Iter 0</div><img src="my_object_iter_0000.png"></div>
+            <div class="image-item"><div class="image-label">Your Object - Iter 300</div><img src="my_object_iter_0300.png"></div>
+            <div class="image-item"><div class="image-label">Your Object - Iter 600</div><img src="my_object_iter_0600.png"></div>
+        </div>
+
+        <div class="large-img">
+            <div class="image-label">Your Object - Training Loss</div>
+            <img src="my_object_loss.png">
+        </div>
+
+        <div class="gif-container">
+            <div class="image-label">Your Object - Novel View Synthesis</div>
+            <img src="my_object_orbit.gif">
+        </div>
+    </div>
+
+    <div class="security-footer">
+        &#9632; CLASSIFIED MATERIAL - AUTHORIZED PERSONNEL ONLY &#9632;<br>
+        CS180 PROJECT 4 - NEURAL RADIANCE FIELDS - FALL 2025
+    </div>
+</div>
+</body>
+</html>
