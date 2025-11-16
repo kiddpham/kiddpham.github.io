@@ -39,6 +39,7 @@
         .large-img{max-width:1000px;margin:0 auto 30px auto;}
         .large-img img{width:100%;border:1px solid #00ff41;}
         .section-description{font-family:'JetBrains Mono',monospace;font-size:14px;color:#b0ff7a;margin-bottom:20px;line-height:1.6;}
+        .implementation-details{font-family:'JetBrains Mono',monospace;font-size:13px;color:#b0ff7a;margin-bottom:25px;padding:15px;background:rgba(0,255,65,0.08);border-left:2px solid #00ff41;line-height:1.7;}
         .gif-container{text-align:center;margin:30px 0;}
         .gif-container img{max-width:600px;width:100%;border:1px solid #00ff41;}
         .security-footer{margin-top:50px;padding:20px;border-top:1px solid #00ff41;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7fff00;opacity:0.8;}
@@ -63,23 +64,23 @@
     </div>
 
     <!-- Part 0: Camera Calibration -->
-<div class="evidence-section">
-    <div class="evidence-title">Part 0: Camera Calibration and 3D Scanning</div>
-    <div class="section-description">
-        Calibrated camera using ArUco markers and estimated camera poses for 3D object scanning.
-        Implemented camera-to-world transformations and created dataset with train/val/test splits.
-    </div>
-    <div class="results-grid">
-        <div class="image-item">
-            <div class="image-label">Camera Frustum Visualization - View 1</div>
-            <img src="frustrum_visualization_1.png">
+    <div class="evidence-section">
+        <div class="evidence-title">Part 0: Camera Calibration and 3D Scanning</div>
+        <div class="section-description">
+            Calibrated camera using ArUco markers and estimated camera poses for 3D object scanning.
+            Implemented camera-to-world transformations and created dataset with train/val/test splits.
         </div>
-        <div class="image-item">
-            <div class="image-label">Camera Frustum Visualization - View 2</div>
-            <img src="frustrum_visualization_2.png">
+        <div class="results-grid">
+            <div class="image-item">
+                <div class="image-label">Camera Frustum Visualization - View 1</div>
+                <img src="frustrum_visualization_1.png">
+            </div>
+            <div class="image-item">
+                <div class="image-label">Camera Frustum Visualization - View 2</div>
+                <img src="frustrum_visualization_2.png">
+            </div>
         </div>
     </div>
-</div>
 
     <!-- Part 1: Neural Field 2D -->
     <div class="evidence-section">
@@ -141,9 +142,51 @@
     <!-- Part 2: NeRF -->
     <div class="evidence-section">
         <div class="evidence-title">Part 2: Fit a Neural Radiance Field from Multi-View Images</div>
-        <div class="section-description">
-            Implemented full NeRF pipeline: ray generation, sampling, volume rendering with density and view-dependent color.
-            Network: 8 layers with skip connection, positional encoding (L=10 for position, L=4 for direction).
+        
+        <!-- Part 2.1 -->
+        <div class="implementation-details">
+            <strong>Part 2.1: Create Rays from Cameras</strong><br><br>
+            I implemented three key functions to convert pixel coordinates into 3D rays for NeRF rendering:<br><br>
+            
+            1. transform(c2w, x_c): Transforms points from camera space to world space using the camera-to-world (c2w) extrinsic matrix. The function handles both single points and batched coordinates by converting to homogeneous coordinates, applying the transformation matrix, and converting back to 3D.<br><br>
+            
+            2. pixel_to_camera(K, uv, s): Converts 2D pixel coordinates (u,v) to 3D camera coordinates using the camera intrinsic matrix K. Given focal lengths (fx, fy) and principal point (cx, cy), it computes the 3D point at depth s using the inverse projection equations: x_c = (u - cx) * s / fx, y_c = (v - cy) * s / fy, z_c = s.<br><br>
+            
+            3. pixel_to_ray(K, c2w, uv): Generates rays for ray marching by combining the previous functions. The ray origin is extracted directly from the c2w translation vector (camera position in world space). The ray direction is computed by transforming a point at depth=1 in camera space to world space, then normalizing the vector from the camera origin to that point.
+        </div>
+
+        <!-- Part 2.2 -->
+        <div class="implementation-details">
+            <strong>Part 2.2: Sampling</strong><br><br>
+            I implemented two sampling functions:<br><br>
+            
+            1. sample_rays_from_images: Randomly samples N rays from the training images. For each ray, it randomly selects an image, picks a random pixel coordinate (with +0.5 offset for pixel center), retrieves the ground truth RGB color, and generates the ray using pixel_to_ray(). This ensures diverse scene coverage during training.<br><br>
+            
+            2. sample_along_rays: Discretizes each ray into sample points between near and far bounds. It creates uniformly spaced points along the ray using np.linspace(), then adds random perturbation during training to prevent overfitting to fixed positions. The 3D coordinates are computed as x = ray_origin + ray_direction * t. I used near=2.0, far=6.0, and n_samples=64 for the lego scene.
+        </div>
+
+        <!-- Part 2.3 -->
+        <div class="implementation-details">
+            <strong>Part 2.3: Putting the Dataloader All Together</strong><br><br>
+            I implemented the RaysDataset class to manage ray sampling from multi-view images. The dataset precomputes all rays during initialization by creating a pixel grid for each image, extracting RGB colors, and generating rays using pixel_to_ray(). All ray origins, directions, and target colors are stored in arrays with shape (N*H*W).<br><br>
+            
+            The sample_rays() method randomly samples rays by generating random indices and returning a dictionary with 'rays_o', 'rays_d', and 'pixels'. I verified correctness with the UV indexing test to ensure pixels map correctly to the original images. Precomputing rays improves training efficiency by eliminating redundant computation.
+        </div>
+
+        <!-- Part 2.4 -->
+        <div class="implementation-details">
+            <strong>Part 2.4: Neural Radiance Field</strong><br><br>
+            I implemented the NeRF network to predict density and view-dependent color for 3D points. The network takes two inputs: 3D position (x,y,z) and 3D view direction, both with positional encoding (L=10 for position, L=4 for direction). The architecture has 8 fully-connected layers with 256 hidden units and a skip connection at layer 5 that concatenates the input position encoding.<br><br>
+            
+            The first 8 layers process the position to output density (with ReLU activation to ensure positive values). Then the network adds the view direction encoding and processes it through 2 additional layers to output RGB color (with Sigmoid to constrain values to [0,1]). This allows the network to model view-dependent effects like specular reflections, where the same 3D point appears different from different viewing angles.
+        </div>
+
+        <!-- Part 2.5 -->
+        <div class="implementation-details">
+            <strong>Part 2.5: Volume Rendering</strong><br><br>
+            I implemented the volume rendering equation to convert density and color predictions into final pixel colors. The volrend() function takes predicted densities (sigmas), colors (rgbs), and step_size as inputs. It computes alpha values (opacity) for each sample using alpha = 1 - exp(-sigma * step_size), representing the probability that a ray terminates at each point.<br><br>
+            
+            The transmittance T is computed using cumulative product of (1 - alpha), representing the probability that the ray reaches each sample without terminating earlier. I concatenate ones at the start and shift by one position to get the correct transmittance values. The final rendered color is the weighted sum of all colors along the ray, where weights = T * alpha. I verified correctness using the provided test case.
         </div>
         
         <!-- Camera Visualizations -->
@@ -159,16 +202,15 @@
         </div>
 
         <!-- Training Progression -->
-        <!-- Training Progression -->
-<div class="results-grid">
-    <div class="image-item"><div class="image-label">Lego - Iter 100</div><img src="nerf_iter_0100.png"></div>
-    <div class="image-item"><div class="image-label">Lego - Iter 300</div><img src="nerf_iter_0300.png"></div>
-    <div class="image-item"><div class="image-label">Lego - Iter 500</div><img src="nerf_iter_0500.png"></div>
-</div>
-<div class="results-grid">
-    <div class="image-item"><div class="image-label">Lego - Iter 700</div><img src="nerf_iter_0700.png"></div>
-    <div class="image-item"><div class="image-label">Lego - Iter 1000</div><img src="nerf_iter_1000.png"></div>
-</div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Lego - Iter 100</div><img src="nerf_iter_0100.png"></div>
+            <div class="image-item"><div class="image-label">Lego - Iter 300</div><img src="nerf_iter_0300.png"></div>
+            <div class="image-item"><div class="image-label">Lego - Iter 500</div><img src="nerf_iter_0500.png"></div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Lego - Iter 700</div><img src="nerf_iter_0700.png"></div>
+            <div class="image-item"><div class="image-label">Lego - Iter 1000</div><img src="nerf_iter_1000.png"></div>
+        </div>
 
         <!-- PSNR Curve -->
         <div class="large-img">
@@ -200,6 +242,11 @@
         <div class="placeholder" style="margin-bottom:30px;">[YOUR OBJECT - TRAINING LOSS PLOT - PENDING]</div>
 
         <div class="placeholder">[YOUR OBJECT - NOVEL VIEW GIF - PENDING]</div>
+    </div>
+
+    <div class="security-footer">
+        &#9632; CLASSIFIED MATERIAL - AUTHORIZED PERSONNEL ONLY &#9632;<br>
+        CS180 PROJECT 4 - NEURAL RADIANCE FIELDS - FALL 2025
     </div>
 </div>
 </body>
