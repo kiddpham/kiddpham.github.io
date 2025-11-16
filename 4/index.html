@@ -229,7 +229,7 @@
     <div class="evidence-section">
         <div class="evidence-title">Part 2.6: Training with Your Own Data</div>
         <div class="section-description">
-            Trained NeRF on custom object captured in Part 0. [Add discussion of any code/hyperparameter changes here]
+            Part 2.6 differs from the earlier Part 2 sections because it no longer uses the perfectly preprocessed Lego dataset. Instead, it relies on my own captured images, which require additional preprocessing steps that the Lego pipeline never needed: undistortion, ROI cropping, resizing to a consistent resolution, and focal-length rescaling. It also adds pose-quality filtering to remove bad c2w matrices, something unnecessary with Lego's ground-truth poses. Another key change is how the depth bounds are handled—Lego uses a fixed [2.0, 6.0] range, while Part 2.6 computes near/far automatically based on actual camera distances, since the real scene scale isn’t known. Finally, rendering uses my own test poses instead of Lego’s synthetic orbit. Everything else (NeRF architecture, ray sampling, training loop) remains unchanged.
         </div>
         
         <!-- Your object training progression -->
