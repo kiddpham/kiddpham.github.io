@@ -1,1 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operation Alpha-Five - DECLASSIFIED</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        @font-face {
+            font-family: 'AgencyGothic';
+            src: url('../fonts/agencygothicct_medium.otf') format('opentype');
+        }
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {
+            background:#0a0a0a;
+            background-image:
+                linear-gradient(rgba(0,255,0,0.03)1px,transparent 1px),
+                linear-gradient(90deg,rgba(0,255,0,0.03)1px,transparent 1px);
+            background-size:40px 40px;
+            font-family:'AgencyGothic',monospace;
+            font-size:20px;
+            margin:20px;
+            color:#00ff41;
+            min-height:100vh;
+        }
+        .container{max-width:1200px;margin:0 auto;}
+        .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding:20px;border:2px solid #00ff41;background:rgba(0,0,0,0.8);}
+        .header h1{font-size:clamp(1.2rem,3vw,1.8rem);font-weight:bold;text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 8px #00ff41;}
+        .back-button{background:transparent;border:2px solid #ff0040;color:#ff0040;padding:8px 16px;text-decoration:none;text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:bold;letter-spacing:1px;transition:all 0.2s ease;}
+        .back-button:hover{background:#ff0040;color:#000;}
+        .classification{text-align:center;margin-bottom:20px;font-family:'JetBrains Mono',monospace;font-size:14px;color:#ff0040;text-transform:uppercase;letter-spacing:3px;border:1px solid #ff0040;padding:8px;background:rgba(255,0,64,0.1);}
+        .mission-details{margin-bottom:30px;padding:20px;border-left:3px solid #00ff41;background:rgba(0,255,65,0.05);font-family:'JetBrains Mono',monospace;font-size:16px;line-height:1.6;color:#b0ff7a;}
+        .mission-objective{margin-bottom:30px;padding:15px;border:1px solid #00ff41;background:rgba(0,0,0,0.5);font-family:'JetBrains Mono',monospace;font-size:14px;color:#7fff00;}
+        .objective-title{color:#00ff41;font-size:16px;font-weight:bold;text-transform:uppercase;margin-bottom:10px;}
+        .evidence-section{margin-bottom:40px;}
+        .evidence-title{color:#ff0040;font-family:'JetBrains Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid #ff0040;}
+        .algorithm-section{background:rgba(0,0,0,0.9);border:1px solid #00ff41;padding:20px;margin-bottom:30px;}
+        .algorithm-title{color:#00ff41;font-family:'JetBrains Mono',monospace;font-size:16px;text-transform:uppercase;letter-spacing:1px;margin-bottom:15px;}
+        .algorithm-description{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6;color:#b0ff7a;margin-bottom:15px;}
+        .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-bottom:30px;}
+        .results-grid-large{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px;}
+        .image-item{background:rgba(0,0,0,0.9);border:1px solid #00ff41;padding:15px;transition:all 0.2s ease;}
+        .image-item:hover{box-shadow:0 0 15px rgba(0,255,65,0.3);border-color:#7fff00;}
+        .image-label{color:#00ff41;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;text-align:center;}
+        .image-item img{width:100%;border:1px solid #00ff41;}
+        .large-img{max-width:800px;margin:0 auto 30px auto;}
+        .large-img img{width:100%;border:1px solid #00ff41;}
+        .section-description{font-family:'JetBrains Mono',monospace;font-size:13px;color:#b0ff7a;margin-bottom:20px;line-height:1.6;}
+        .formula{background:rgba(0,0,0,0.8);border-left:3px solid #ff0040;padding:15px;margin:15px 0;font-family:'JetBrains Mono',monospace;font-size:12px;color:#7fff00;overflow-x:auto;}
+        .security-footer{margin-top:50px;padding:20px;border-top:1px solid #00ff41;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7fff00;opacity:0.8;}
+        .placeholder{background:rgba(255,0,64,0.1);border:2px dashed #ff0040;padding:40px;text-align:center;color:#ff0040;font-family:'JetBrains Mono',monospace;font-size:14px;margin-bottom:30px;}
+        @media (max-width:768px){
+            body{margin:15px;}
+            .header{flex-direction:column;gap:15px;text-align:center;}
+            .results-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="classification">&#9632; DECLASSIFIED - OPERATION ALPHA-FIVE &#9632;</div>
+    <div class="header">
+        <h1>Operation Alpha-Five: The Power of Diffusion Models</h1>
+        <a href="../index.html" class="back-button">&#8592; Go Back</a>
+    </div>
+    <div class="mission-details">
+        &gt; MISSION STATUS: PART A COMPLETE<br>
+        &gt; AGENT: Kidd Pham<br>
+        &gt; OPERATION DATE: [REDACTED]<br>
+        &gt; CLASSIFICATION LEVEL: RESTRICTED ACCESS<br>
+        &gt; RANDOM SEED: 33
+    </div>
+    <div class="mission-objective">
+        <div class="objective-title">Mission Objective</div>
+        Advanced generative modeling operations using the DeepFloyd IF diffusion model. Mission includes implementation of 
+        diffusion sampling loops, classifier-free guidance, image-to-image translation (SDEdit), inpainting, visual anagrams, 
+        and hybrid image synthesis through frequency-based noise composition.
+    </div>
 
+    <!-- Part 0: Setup -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 0: Setup - Text-to-Image Generation</div>
+        <div class="section-description">
+            Initialized DeepFloyd IF model with custom prompt embeddings. Generated images using varying inference steps 
+            to demonstrate quality-speed tradeoff. Lower steps (20) produce faster but lower quality results, while 
+            higher steps (50) yield more refined outputs.
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Prompt 1: "a photo of batman drinking a cup of coffee"</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">20 Inference Steps</div><img src="batman_coffee_20.png"></div>
+            <div class="image-item"><div class="image-label">50 Inference Steps</div><img src="batman_coffee_50.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Prompt 2: "a lithograph of a bear"</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">20 Inference Steps</div><img src="bear_20.png"></div>
+            <div class="image-item"><div class="image-label">50 Inference Steps</div><img src="bear_50.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Prompt 3: "a photo of people climbing mount fuji while drinking coffee"</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">20 Inference Steps</div><img src="fuji_coffee_20.png"></div>
+            <div class="image-item"><div class="image-label">50 Inference Steps</div><img src="fuji_coffee_50.png"></div>
+        </div>
+        <div class="algorithm-description">
+            The quality difference between 20 and 50 inference steps is visible in the fine details and overall coherence. 
+            Higher step counts allow the denoising process more iterations to refine the image, resulting in sharper details 
+            and better prompt adherence.
+        </div>
+    </div>
+
+    <!-- Part 1.1: Forward Process -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.1: Implementing the Forward Process</div>
+        <div class="section-description">
+            Implemented the diffusion forward process which progressively adds Gaussian noise to a clean image. 
+            The forward process follows the equation:
+        </div>
+        <div class="formula">
+            x_t = √(ᾱ_t) · x_0 + √(1 - ᾱ_t) · ε &nbsp;&nbsp; where ε ~ N(0, 1)
+        </div>
+        <div class="section-description">
+            As timestep t increases, more noise is added and the original image content becomes increasingly obscured.
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="original.png"></div>
+            <div class="image-item"><div class="image-label">t = 250</div><img src="campanile_250.png"></div>
+            <div class="image-item"><div class="image-label">t = 500</div><img src="campanile_500.png"></div>
+            <div class="image-item"><div class="image-label">t = 750</div><img src="campanile_750.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.2: Classical Denoising -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.2: Classical Denoising (Gaussian Blur)</div>
+        <div class="section-description">
+            Attempted to denoise the noisy images using classical Gaussian blur filtering. As expected, this approach 
+            fails to recover meaningful image content because it cannot distinguish between noise and signal — it simply 
+            blurs everything uniformly.
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Gaussian Blur t=250</div><img src="campanile_250_gauss.png"></div>
+            <div class="image-item"><div class="image-label">Gaussian Blur t=500</div><img src="campanile_500_gauss.png"></div>
+            <div class="image-item"><div class="image-label">Gaussian Blur t=750</div><img src="campanile_750_gauss.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.3: One-Step Denoising -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.3: One-Step Denoising</div>
+        <div class="section-description">
+            Used the pretrained DeepFloyd UNet to estimate noise in a single step. The model predicts ε, which is then 
+            used to recover an estimate of the clean image x_0:
+        </div>
+        <div class="formula">
+            x_0 = (x_t - √(1 - ᾱ_t) · ε) / √(ᾱ_t)
+        </div>
+        <div class="section-description">
+            One-step denoising works reasonably well for lower noise levels but degrades significantly at higher timesteps 
+            where the problem becomes more ambiguous.
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">One-Step t=250</div><img src="one_step_250_campanile.png"></div>
+            <div class="image-item"><div class="image-label">One-Step t=500</div><img src="one_step_500_campanile.png"></div>
+            <div class="image-item"><div class="image-label">One-Step t=750</div><img src="one_step_750_campanile.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.4: Iterative Denoising -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.4: Iterative Denoising</div>
+        <div class="section-description">
+            Implemented the full DDPM iterative denoising loop with strided timesteps (990 → 0, stride 30). 
+            At each step, the model estimates noise and takes a small step toward the clean image, allowing for 
+            gradual refinement.
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Denoising Progression (every 5th step)</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">t = 690</div><img src="noise_690.png"></div>
+            <div class="image-item"><div class="image-label">t = 540</div><img src="noise_540.png"></div>
+            <div class="image-item"><div class="image-label">t = 340</div><img src="noise_340.png"></div>
+            <div class="image-item"><div class="image-label">t = 240</div><img src="noise_240.png"></div>
+            <div class="image-item"><div class="image-label">t = 90</div><img src="noise_90.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Method Comparison</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="original1.4.png"></div>
+            <div class="image-item"><div class="image-label">Iterative Denoising</div><img src="iterative.png"></div>
+            <div class="image-item"><div class="image-label">One-Step Denoising</div><img src="One-step.png"></div>
+            <div class="image-item"><div class="image-label">Gaussian Blur</div><img src="gaussian.png"></div>
+        </div>
+        <div class="algorithm-description">
+            Iterative denoising produces significantly better results than one-step denoising or Gaussian blur. 
+            The gradual refinement process allows the model to progressively resolve ambiguities and produce 
+            coherent reconstructions.
+        </div>
+    </div>
+
+    <!-- Part 1.5: Diffusion Model Sampling -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.5: Diffusion Model Sampling</div>
+        <div class="section-description">
+            Generated images from pure noise by running the iterative denoising loop starting from random Gaussian noise. 
+            Without classifier-free guidance, the results are often incoherent or low quality.
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Sample 1</div><img src="sample1.png"></div>
+            <div class="image-item"><div class="image-label">Sample 2</div><img src="sample2.png"></div>
+            <div class="image-item"><div class="image-label">Sample 3</div><img src="sample3.png"></div>
+            <div class="image-item"><div class="image-label">Sample 4</div><img src="sample4.png"></div>
+            <div class="image-item"><div class="image-label">Sample 5</div><img src="sample5.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.6: Classifier-Free Guidance -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.6: Classifier-Free Guidance (CFG)</div>
+        <div class="section-description">
+            Implemented CFG to improve generation quality. CFG computes both conditional and unconditional noise estimates 
+            and amplifies the difference:
+        </div>
+        <div class="formula">
+            ε = ε_u + γ(ε_c - ε_u) &nbsp;&nbsp; where γ = 7
+        </div>
+        <div class="section-description">
+            With CFG (γ=7), the generated images are noticeably sharper and more coherent than without guidance.
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">CFG Sample 1</div><img src="1.6sample1.png"></div>
+            <div class="image-item"><div class="image-label">CFG Sample 2</div><img src="1.6sample2.png"></div>
+            <div class="image-item"><div class="image-label">CFG Sample 3</div><img src="1.6sample3.png"></div>
+            <div class="image-item"><div class="image-label">CFG Sample 4</div><img src="1.6sample4.png"></div>
+            <div class="image-item"><div class="image-label">CFG Sample 5</div><img src="1.6sample5.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.7: Image-to-image Translation -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.7: Image-to-image Translation (SDEdit)</div>
+        <div class="section-description">
+            Applied the SDEdit algorithm: add noise to a real image, then denoise to project it onto the natural image manifold. 
+            Lower i_start values create more dramatic edits, while higher values preserve more of the original structure.
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Campanile SDEdit</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="original_campanile.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 1</div><img src="iter1camp.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 3</div><img src="iter3camp.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 5</div><img src="iter5camp.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 7</div><img src="iter7camp.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 10</div><img src="iter10camp.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 20</div><img src="iter20camp.png"></div>
+        </div>
+        <div class="placeholder">
+            [PLACEHOLDER: 2 additional test images with SDEdit at noise levels 1, 3, 5, 7, 10, 20]
+        </div>
+    </div>
+
+    <!-- Part 1.7.1: Hand-Drawn and Web Images -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.7.1: Editing Hand-Drawn and Web Images</div>
+        <div class="section-description">
+            SDEdit works particularly well for projecting non-realistic images (sketches, drawings) onto the natural 
+            image manifold, effectively "making them real."
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Web Image: Christian Bale as Batman</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="christian_bale_batman.avif"></div>
+            <div class="image-item"><div class="image-label">i_start = 1</div><img src="iter1.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 3</div><img src="iter3.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 5</div><img src="iter5.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 7</div><img src="iter7.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 10</div><img src="iter10.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 20</div><img src="iter20.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Hand-Drawn Image 1</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original Drawing</div><img src="drawing1.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 1</div><img src="drawing1iter1.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 3</div><img src="drawing1iter3.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 5</div><img src="drawing1iter5.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 7</div><img src="drawing1iter7.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 10</div><img src="drawing1iter10.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 20</div><img src="drawing1iter20.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Hand-Drawn Image 2</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original Drawing</div><img src="drawing2.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 1</div><img src="drawing2iter1.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 3</div><img src="drawing2iter3.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 5</div><img src="drawing2iter5.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 7</div><img src="drawing2iter7.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 10</div><img src="drawing2iter10.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 20</div><img src="drawing2iter20.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.7.2: Inpainting -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.7.2: Inpainting</div>
+        <div class="section-description">
+            Implemented inpainting following the RePaint approach. At each denoising step, the region outside the mask 
+            is replaced with the appropriately noised original image:
+        </div>
+        <div class="formula">
+            x_t ← m · x_t + (1 - m) · forward(x_orig, t)
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Campanile Inpainting</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="original1.7.2.png"></div>
+            <div class="image-item"><div class="image-label">Mask</div><img src="mask.png"></div>
+            <div class="image-item"><div class="image-label">Hole to Fill</div><img src="holetofill.png"></div>
+            <div class="image-item"><div class="image-label">Inpainted</div><img src="inpainted.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Custom Image 1: Alfred</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="originalalfred.png"></div>
+            <div class="image-item"><div class="image-label">Mask</div><img src="maskalfred.png"></div>
+            <div class="image-item"><div class="image-label">Hole to Fill</div><img src="holetofillalfred.png"></div>
+            <div class="image-item"><div class="image-label">Inpainted</div><img src="inpaintedalfred.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Custom Image 2: Dent</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="originaldent.png"></div>
+            <div class="image-item"><div class="image-label">Mask</div><img src="maskdent.png"></div>
+            <div class="image-item"><div class="image-label">Hole to Fill</div><img src="dentholetofill.png"></div>
+            <div class="image-item"><div class="image-label">Inpainted</div><img src="dentinpainted.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.7.3: Text-Conditional Image-to-image Translation -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.7.3: Text-Conditional Image-to-image Translation</div>
+        <div class="section-description">
+            Combined SDEdit with text conditioning to guide the projection toward a specific prompt. 
+            Used prompt: "a photo of people climbing mount fuji while drinking coffee"
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Campanile → Mount Fuji</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="campanileoriginal.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 1</div><img src="campanileiter1.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 3</div><img src="campanileiter3.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 5</div><img src="campanileiter5.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 7</div><img src="campanileiter7.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 10</div><img src="campanileiter10.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 20</div><img src="campanileiter20.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Gordon → Mount Fuji</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="gordonoriginal.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 1</div><img src="gordoniter1.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 3</div><img src="gordoniter3.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 5</div><img src="gordoniter5.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 7</div><img src="gordoniter7.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 10</div><img src="gordoniter10.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 20</div><img src="gordoniter20.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Anne → Mount Fuji</div>
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Original</div><img src="anneoriginal.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 1</div><img src="anneiter1.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 3</div><img src="anneiter3.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 5</div><img src="anneiter5.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 7</div><img src="anneiter7.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 10</div><img src="anneiter10.png"></div>
+            <div class="image-item"><div class="image-label">i_start = 20</div><img src="anneiter20.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.8: Visual Anagrams -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.8: Visual Anagrams</div>
+        <div class="section-description">
+            Created optical illusions that reveal different images when flipped upside down. The algorithm averages 
+            noise estimates from two prompts — one for the normal orientation and one for the flipped orientation:
+        </div>
+        <div class="formula">
+            ε₁ = CFG(UNet(x_t, t, p₁))<br>
+            ε₂ = flip(CFG(UNet(flip(x_t), t, p₂)))<br>
+            ε = (ε₁ + ε₂) / 2
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Illusion 1: "a lithograph of a bear" ↔ "a photo of a man"</div>
+        </div>
+        <div class="results-grid-large">
+            <div class="image-item"><div class="image-label">Normal (Bear)</div><img src="bearman.png"></div>
+            <div class="image-item"><div class="image-label">Flipped (Man)</div><img src="manbear.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Illusion 2: "an oil painting of an old man" ↔ "an oil painting of people around a campfire"</div>
+        </div>
+        <div class="results-grid-large">
+            <div class="image-item"><div class="image-label">Normal (Old Man)</div><img src="oldman_campfire.png"></div>
+            <div class="image-item"><div class="image-label">Flipped (Campfire)</div><img src="campfire_oldman.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 1.9: Hybrid Images -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.9: Hybrid Images</div>
+        <div class="section-description">
+            Created hybrid images by combining low frequencies from one noise estimate with high frequencies from another, 
+            similar to Project 2 but in the diffusion noise domain:
+        </div>
+        <div class="formula">
+            ε₁ = CFG(UNet(x_t, t, p₁))<br>
+            ε₂ = CFG(UNet(x_t, t, p₂))<br>
+            ε = lowpass(ε₁) + highpass(ε₂)
+        </div>
+        <div class="section-description">
+            Used Gaussian blur with kernel_size=33 and sigma=2. The low-frequency prompt is visible from far away, 
+            while the high-frequency prompt is visible up close.
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Hybrid 1: Batman (low) + Dog (high)</div>
+            <div class="algorithm-description">Prompts: "a photo of batman drinking a cup of coffee" + "a photo of a dog"</div>
+        </div>
+        <div class="results-grid-large">
+            <div class="image-item"><div class="image-label">Hybrid Image</div><img src="batman_dog.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Hybrid 2: Bear (low) + Waterfall (high)</div>
+            <div class="algorithm-description">Prompts: "a lithograph of a bear" + "a lithograph of waterfalls"</div>
+        </div>
+        <div class="results-grid-large">
+            <div class="image-item"><div class="image-label">Hybrid Image</div><img src="bear_waterfall.png"></div>
+        </div>
+    </div>
+
+    <!-- Part 2: Placeholder -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 2: Bells & Whistles</div>
+        <div class="placeholder">
+            [CLASSIFIED - PART B IN PROGRESS]<br><br>
+            Additional operations pending declassification...
+        </div>
+    </div>
+
+    <div class="security-footer">
+        &#9632; END OF DECLASSIFIED DOCUMENT &#9632;<br>
+        OPERATION ALPHA-FIVE - THE POWER OF DIFFUSION MODELS<br>
+        UNIVERSITY OF CALIFORNIA, BERKELEY - CS 180
+    </div>
+</div>
+</body>
+</html>
