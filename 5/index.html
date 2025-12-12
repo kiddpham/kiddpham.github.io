@@ -37,6 +37,7 @@
         .algorithm-description{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6;color:#b0ff7a;margin-bottom:15px;}
         .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-bottom:30px;}
         .results-grid-large{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px;}
+        .results-grid-small{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;margin-bottom:30px;max-width:400px;}
         .image-item{background:rgba(0,0,0,0.9);border:1px solid #00ff41;padding:15px;transition:all 0.2s ease;}
         .image-item:hover{box-shadow:0 0 15px rgba(0,255,65,0.3);border-color:#7fff00;}
         .image-label{color:#00ff41;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;text-align:center;}
@@ -141,6 +142,11 @@
             blurs everything uniformly.
         </div>
         <div class="results-grid">
+            <div class="image-item"><div class="image-label">Noisy t=250</div><img src="campanile_250.png"></div>
+            <div class="image-item"><div class="image-label">Noisy t=500</div><img src="campanile_500.png"></div>
+            <div class="image-item"><div class="image-label">Noisy t=750</div><img src="campanile_750.png"></div>
+        </div>
+        <div class="results-grid">
             <div class="image-item"><div class="image-label">Gaussian Blur t=250</div><img src="campanile_250_gauss.png"></div>
             <div class="image-item"><div class="image-label">Gaussian Blur t=500</div><img src="campanile_500_gauss.png"></div>
             <div class="image-item"><div class="image-label">Gaussian Blur t=750</div><img src="campanile_750_gauss.png"></div>
@@ -160,6 +166,11 @@
         <div class="section-description">
             One-step denoising works reasonably well for lower noise levels but degrades significantly at higher timesteps 
             where the problem becomes more ambiguous.
+        </div>
+        <div class="results-grid">
+            <div class="image-item"><div class="image-label">Noisy t=250</div><img src="campanile_250.png"></div>
+            <div class="image-item"><div class="image-label">Noisy t=500</div><img src="campanile_500.png"></div>
+            <div class="image-item"><div class="image-label">Noisy t=750</div><img src="campanile_750.png"></div>
         </div>
         <div class="results-grid">
             <div class="image-item"><div class="image-label">One-Step t=250</div><img src="one_step_250_campanile.png"></div>
@@ -441,14 +452,14 @@
             <div class="algorithm-title">Hybrid 1: Batman (low) + Dog (high)</div>
             <div class="algorithm-description">Prompts: "a photo of batman drinking a cup of coffee" + "a photo of a dog"</div>
         </div>
-        <div class="results-grid-large">
+        <div class="results-grid-small">
             <div class="image-item"><div class="image-label">Hybrid Image</div><img src="batman_dog.png"></div>
         </div>
         <div class="algorithm-section">
             <div class="algorithm-title">Hybrid 2: Bear (low) + Waterfall (high)</div>
             <div class="algorithm-description">Prompts: "a lithograph of a bear" + "a lithograph of waterfalls"</div>
         </div>
-        <div class="results-grid-large">
+        <div class="results-grid-small">
             <div class="image-item"><div class="image-label">Hybrid Image</div><img src="bear_waterfall.png"></div>
         </div>
     </div>
