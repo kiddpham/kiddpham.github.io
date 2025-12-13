@@ -63,7 +63,7 @@
         <a href="../index.html" class="back-button">&#8592; Go Back</a>
     </div>
     <div class="mission-details">
-        &gt; MISSION STATUS: PART A COMPLETE<br>
+        &gt; MISSION STATUS: PARTS A & B COMPLETE<br>
         &gt; AGENT: Kidd Pham<br>
         &gt; OPERATION DATE: [REDACTED]<br>
         &gt; CLASSIFICATION LEVEL: RESTRICTED ACCESS<br>
@@ -71,9 +71,11 @@
     </div>
     <div class="mission-objective">
         <div class="objective-title">Mission Objective</div>
-        Advanced generative modeling operations using the DeepFloyd IF diffusion model. Mission includes implementation of 
+        <b>Part A:</b> Advanced generative modeling operations using the DeepFloyd IF diffusion model. Implementation of 
         diffusion sampling loops, classifier-free guidance, image-to-image translation (SDEdit), inpainting, visual anagrams, 
-        and hybrid image synthesis through frequency-based noise composition.
+        and hybrid image synthesis through frequency-based noise composition.<br><br>
+        <b>Part B:</b> Training flow matching models from scratch on MNIST. Implementation of UNet denoiser, 
+        time-conditioned and class-conditioned flow matching with classifier-free guidance for controllable digit generation.
     </div>
 
     <!-- Part 0: Setup -->
@@ -464,12 +466,197 @@
         </div>
     </div>
 
-    <!-- Part 2: Placeholder -->
+    <!-- PART B: Flow Matching from Scratch -->
+    <div class="classification">&#9632; PART B: FLOW MATCHING FROM SCRATCH &#9632;</div>
+
+    <!-- Part B 1.2: Noising Visualization -->
     <div class="evidence-section">
-        <div class="evidence-title">Part 2: Bells & Whistles</div>
-        <div class="placeholder">
-            [CLASSIFIED - PART B IN PROGRESS]<br><br>
-            Additional operations pending declassification...
+        <div class="evidence-title">Part 1.2: Visualizing the Noising Process</div>
+        <div class="section-description">
+            Visualized the effect of adding Gaussian noise at different levels σ = [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0] 
+            to a clean MNIST digit. As σ increases, the original digit becomes increasingly obscured.
+        </div>
+        <div class="formula">
+            z = x + σε, where ε ~ N(0, I)
+        </div>
+        <div class="large-img">
+            <img src="sig0to1.png">
+        </div>
+    </div>
+
+    <!-- Part B 1.2.1: Training -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.2.1: Training a Denoiser</div>
+        <div class="section-description">
+            Trained an unconditional UNet to denoise MNIST digits with σ = 0.5. The model learns to map noisy images 
+            back to clean images by minimizing L2 loss.
+        </div>
+        <div class="formula">
+            L = E[||D_θ(z) - x||²]
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Training Loss Curve</div>
+        </div>
+        <div class="large-img">
+            <img src="losscurve.png">
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Denoising Results</div>
+        </div>
+        <div class="results-grid-large">
+            <div class="image-item"><div class="image-label">Input / Noisy / Output</div><img src="inputs_and_noise.png"></div>
+        </div>
+        <div class="results-grid-large">
+            <div class="image-item"><div class="image-label">Epoch 1</div><img src="epoch1.png"></div>
+            <div class="image-item"><div class="image-label">Epoch 5</div><img src="epoch5.png"></div>
+        </div>
+    </div>
+
+    <!-- Part B 1.2.2: OOD Testing -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.2.2: Out-of-Distribution Testing</div>
+        <div class="section-description">
+            Tested the denoiser (trained on σ = 0.5) on noise levels it wasn't trained for. The model performs best 
+            near σ = 0.5 and struggles with very low or very high noise levels.
+        </div>
+        <div class="large-img">
+            <img src="OOD.png">
+        </div>
+    </div>
+
+    <!-- Part B 1.2.3: Pure Noise -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 1.2.3: Denoising Pure Noise</div>
+        <div class="section-description">
+            Attempted to use one-step denoising as a generative model by denoising pure Gaussian noise.
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Training Loss Curve</div>
+        </div>
+        <div class="large-img">
+            <img src="pure_loss_curve.png">
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Results</div>
+        </div>
+        <div class="results-grid-large">
+            <div class="image-item"><div class="image-label">Noise + Epoch 1</div><img src="noise_and_epoch1.png"></div>
+            <div class="image-item"><div class="image-label">Epoch 5</div><img src="epoch5_out.png"></div>
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Analysis</div>
+            <div class="algorithm-description">
+                The outputs appear as blurry, averaged digit-like shapes rather than distinct digits. This is the 
+                "centroid effect" — with MSE loss, the model learns to predict the point that minimizes squared 
+                distance to all training examples. Since pure noise could map to any digit (0-9), the optimal 
+                prediction is the average of all digits, resulting in these blurry blob-like outputs. This 
+                demonstrates why one-step denoising fails for generation and why iterative approaches like 
+                flow matching are necessary.
+            </div>
+        </div>
+    </div>
+
+    <!-- Part B 2: Flow Matching -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 2: Training a Flow Matching Model</div>
+        <div class="section-description">
+            Implemented flow matching for iterative denoising. Instead of one-step prediction, we learn to predict 
+            the flow (velocity) from noise to data and iteratively integrate.
+        </div>
+        <div class="formula">
+            x_t = (1 - t)x_0 + tx_1, where x_0 ~ N(0, 1), t ∈ [0, 1]<br><br>
+            u(x_t, t) = dx_t/dt = x_1 - x_0
+        </div>
+    </div>
+
+    <!-- Part B 2.2: Time-Conditioned Training -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 2.2: Training the Time-Conditioned UNet</div>
+        <div class="section-description">
+            Added time conditioning to the UNet via FCBlocks that modulate intermediate features. The model learns 
+            to predict flow at any timestep t.
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Training Loss Curve</div>
+        </div>
+        <div class="large-img">
+            <img src="loss_2.2.png">
+        </div>
+    </div>
+
+    <!-- Part B 2.3: Time-Conditioned Sampling -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 2.3: Sampling from the Time-Conditioned UNet</div>
+        <div class="section-description">
+            Sampled from the trained model by iteratively integrating the predicted flow from t=0 to t=1.
+        </div>
+        <div class="formula">
+            x_t = x_t + (1/T) · u_θ(x_t, t)
+        </div>
+        <div class="large-img">
+            <img src="epoch1,5,10.png">
+        </div>
+        <div class="algorithm-description">
+            Results improve over training but remain imperfect since the model doesn't know which digit to generate. 
+            Class conditioning (Part 2.4-2.6) addresses this.
+        </div>
+    </div>
+
+    <!-- Part B 2.5: Class-Conditioned Training -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 2.5: Training the Class-Conditioned UNet</div>
+        <div class="section-description">
+            Added class conditioning via one-hot vectors with 10% dropout for classifier-free guidance. The model 
+            learns to generate specific digits on command.
+        </div>
+        <div class="formula">
+            u_θ(x_t, t, c) with p_uncond = 0.1
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Training Loss Curve</div>
+        </div>
+        <div class="large-img">
+            <img src="2.5_loss.png">
+        </div>
+    </div>
+
+    <!-- Part B 2.6: Class-Conditioned Sampling -->
+    <div class="evidence-section">
+        <div class="evidence-title">Part 2.6: Sampling from the Class-Conditioned UNet</div>
+        <div class="section-description">
+            Sampled with classifier-free guidance (γ = 5.0) to generate 4 instances of each digit (0-9).
+        </div>
+        <div class="formula">
+            u = u_uncond + γ(u_cond - u_uncond)
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Epoch 1</div>
+        </div>
+        <div class="large-img">
+            <img src="2.5_epoch1.png">
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Epoch 5</div>
+        </div>
+        <div class="large-img">
+            <img src="2.5_epoch5.png">
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">Epoch 10</div>
+        </div>
+        <div class="large-img">
+            <img src="2.5_epoch10.png">
+        </div>
+        <div class="algorithm-section">
+            <div class="algorithm-title">No Learning Rate Scheduler Experiment</div>
+            <div class="algorithm-description">
+                Trained the same model without the exponential learning rate scheduler, using a constant lower 
+                learning rate (1e-3 instead of 1e-2) to maintain stability. The results are comparable, 
+                demonstrating that careful learning rate selection can substitute for a scheduler.
+            </div>
+        </div>
+        <div class="large-img">
+            <img src="no_scheduler.png">
         </div>
     </div>
 
