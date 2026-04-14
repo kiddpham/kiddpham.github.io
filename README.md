@@ -1,3 +1,2 @@
 # COMPSCI-180-Projects
-Web Page for Computer Vision Projects \n
-Visit: kiddpham.github.io
+Web Page for Computer Vision Projects: kiddpham.github.io
